@@ -1,6 +1,7 @@
 import {normalizePath} from '@rollup/pluginutils';
 import fs from 'fs';
 import path from 'path';
+import process from 'process';
 import {deleteAsync} from 'del';
 
 function replaceExtension(filePath, ext = '') {
@@ -29,7 +30,11 @@ export default function inputWithCss() {
 		inputCss = normalizePath(path.resolve(inputCss));
 
 		inputRefs[inputJs] = inputCss;
-		fs.writeFileSync(inputJs, `import '${inputCss}';`);
+		const inputJsContent = `import './${path.basename(inputCss)}';`;
+
+		if (!fs.existsSync(inputJs) || inputJsContent !== fs.readFileSync(inputJs, 'utf8')) {
+			fs.writeFileSync(inputJs, inputJsContent);
+		}
 
 		return inputJs;
 	}
@@ -46,6 +51,15 @@ export default function inputWithCss() {
 		return createInputJs(input, suffix);
 	}
 
+	function cleanUp(code = 0) {
+		Promise.all([deleteAsync(Object.keys(inputRefs))]).then(() => {
+			process.exit(!isNaN(code) ? +code : 0);
+		});
+	}
+
+	process.on('beforeExit', cleanUp);
+	process.on('SIGINT', cleanUp);
+
 	return {
 		name: 'input-with-css',
 
@@ -61,7 +75,6 @@ export default function inputWithCss() {
 		},
 
 		async closeBundle() {
-			deleteAsync(Object.keys(inputRefs));
 			deleteAsync(Object.keys(outputRefs));
 		},
 	};

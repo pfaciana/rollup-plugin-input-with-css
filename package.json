@@ -1,6 +1,6 @@
 {
 	"name": "rollup-plugin-input-with-css",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A Rollup JS plugin for using CSS or SCSS (SASS) files as inputs and output filenames",
 	"main": "index.js",
 	"type": "module",
