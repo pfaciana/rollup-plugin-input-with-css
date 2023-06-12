@@ -1,0 +1,38 @@
+{
+	"name": "rollup-plugin-input-with-css",
+	"version": "1.0.0",
+	"description": "A Rollup JS plugin for using CSS or SCSS (SASS) files as inputs and output filenames",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pfaciana/rollup-plugin-input-with-css.git"
+	},
+	"keywords": [
+		"rollup",
+		"rollup-plugin",
+		"plugin",
+		"SCSS",
+		"CSS",
+		"build",
+		"bundler",
+		"JavaScript",
+		"module",
+		"import",
+		"export"
+	],
+	"author": "Phil Faciana <phil@renderdev.com> (https://renderdev.com/)",
+	"license": "MIT",
+	"homepage": "https://github.com/pfaciana/rollup-plugin-input-with-css",
+	"engines": {
+		"node": ">=14.16"
+	},
+	"devDependencies": {
+		"rollup": "^3"
+	},
+	"dependencies": {
+		"@rollup/pluginutils": "^5",
+		"del": "^7"
+	}
+}
